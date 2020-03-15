@@ -8,13 +8,14 @@ class App extends Component {
 
     this.state = {
       bg: "#faaaf5",
-      name: "Hello World!"
+      name: "",
+      image: ""
     };
   }
 
   async fetchWeatherData() {
     const res = await axios.get(
-      `http://api.openweathermap.org/data/2.5/weather?q=boston&appid=4e18a7bd71bb6257607ec44ce1dfe75c`
+      `http://api.openweathermap.org/data/2.5/weather?q=honolulu&appid=4e18a7bd71bb6257607ec44ce1dfe75c`
     );
 
     const tempInKelvin = res.data.main.temp;
@@ -33,12 +34,25 @@ class App extends Component {
     });
 
     this.fetchPhotos();
+    this.changeBG(this.state.temp);
+  }
+
+  changeBG(temperature: Int) {
+    if (temperature > 60) {
+      this.setState({
+        bg: "#f55"
+      });
+    }
   }
 
   async fetchPhotos() {
     const res = await axios.get(
-      `https://pixabay.com/api/?key=11861758-a42c6665d59b8095c1461c9af&q=${this.state.city}&image_type=photo`
+      `https://pixabay.com/api/?key=11861758-a42c6665d59b8095c1461c9af&q=${this.state.name}}&image_type=photo`
     );
+
+    this.setState({
+      image: res.data.hits[0].largeImageURL
+    });
   }
 
   componentDidMount() {
@@ -51,11 +65,11 @@ class App extends Component {
         <Image
           style={styles.image}
           source={{
-            uri:
-              "https://image.cnbcfm.com/api/v1/image/105055178-GettyImages-680143744rr.jpg?v=1576513702&w=1400&h=950"
+            uri: `${this.state.image}`
           }}
         />
         <Text>{this.state.name}</Text>
+        <Text>{this.state.temp}</Text>
       </View>
     );
   }
