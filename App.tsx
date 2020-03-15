@@ -33,6 +33,10 @@ class App extends Component {
     });
   }
 
+  async fetchPhotos() {
+    const res = await axios.get(`https://pixabay.com/api/?key=11861758-a42c6665d59b8095c1461c9af&q=california&image_type=photo`)
+  }
+
   componentDidMount() {
     this.fetchWeatherData();
   }
