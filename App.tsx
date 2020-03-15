@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import axios from "axios";
 
 class App extends Component {
@@ -14,7 +14,7 @@ class App extends Component {
 
   async fetchWeatherData() {
     const res = await axios.get(
-      `http://api.openweathermap.org/data/2.5/weather?q=sunnyvale&appid=4e18a7bd71bb6257607ec44ce1dfe75c`
+      `http://api.openweathermap.org/data/2.5/weather?q=boston&appid=4e18a7bd71bb6257607ec44ce1dfe75c`
     );
 
     const tempInKelvin = res.data.main.temp;
@@ -23,7 +23,7 @@ class App extends Component {
     const tempInF = Math.round(((tempInKelvin - 273.15) * 9) / 5 + 32);
     const feelsLikeF = Math.round(((feelsLikeKelvin - 273.15) * 9) / 5 + 32);
 
-    this.setState({
+    await this.setState({
       name: res.data.name,
       temp: tempInF,
       feelsLike: feelsLikeF,
@@ -31,10 +31,14 @@ class App extends Component {
       description: res.data.weather[0].description,
       animation: null
     });
+
+    this.fetchPhotos();
   }
 
   async fetchPhotos() {
-    const res = await axios.get(`https://pixabay.com/api/?key=11861758-a42c6665d59b8095c1461c9af&q=california&image_type=photo`)
+    const res = await axios.get(
+      `https://pixabay.com/api/?key=11861758-a42c6665d59b8095c1461c9af&q=${this.state.city}&image_type=photo`
+    );
   }
 
   componentDidMount() {
@@ -44,6 +48,13 @@ class App extends Component {
   render() {
     return (
       <View style={[styles.container, { backgroundColor: this.state.bg }]}>
+        <Image
+          style={styles.image}
+          source={{
+            uri:
+              "https://image.cnbcfm.com/api/v1/image/105055178-GettyImages-680143744rr.jpg?v=1576513702&w=1400&h=950"
+          }}
+        />
         <Text>{this.state.name}</Text>
       </View>
     );
@@ -57,6 +68,10 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "center"
+  },
+  image: {
+    width: "100%",
+    height: 200
   }
 });
 
