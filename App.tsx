@@ -9,7 +9,8 @@ class App extends Component {
     this.state = {
       bg: "#faaaf5",
       name: "",
-      image: ""
+      image: "",
+      symbol: "https://img.icons8.com/ios/72/sun.png"
     };
   }
 
@@ -68,8 +69,14 @@ class App extends Component {
             uri: `${this.state.image}`
           }}
         />
-        <Text>{this.state.name}</Text>
-        <Text>{this.state.temp}</Text>
+        <View style={styles.midContainer}>
+          <Text style={styles.temp}>{this.state.temp}°</Text>
+          <Text>{this.state.name}</Text>
+          <Image
+            style={styles.symbol}
+            source={{ uri: `${this.state.symbol}` }}
+          />
+        </View>
       </View>
     );
   }
@@ -81,11 +88,29 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "flex-start"
   },
   image: {
     width: "100%",
-    height: 200
+    height: "30%"
+  },
+  midContainer: {
+    backgroundColor: "white",
+    width: "100%",
+    height: "35%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  temp: {
+    
+  },
+
+  symbol: {
+    height: "35%",
+    width: "35%",
+    resizeMode: "contain"
   }
 });
 
