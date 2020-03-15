@@ -79,6 +79,8 @@ class App extends Component {
         </View>
         <View style={styles.scrollView}>
           <FlatList
+            horizontal={true}
+            style={styles.flatList}
             data={[
               { key: "Devin" },
               { key: "Dan" },
@@ -92,7 +94,9 @@ class App extends Component {
               { key: "Julie" }
             ]}
             renderItem={({ item }) => (
-              <Text style={styles.item}>{item.key}</Text>
+              <View style={styles.item}>
+                <Text style={styles.itemText}>{item.key}</Text>
+              </View>
             )}
           />
         </View>
@@ -140,17 +144,30 @@ const styles = StyleSheet.create({
   scrollView: {
     height: "35%",
     width: "100%",
-    backgroundColor: "blue",
-    // horizontal: true,
-    // alwaysBounceHorizontal: true
+    backgroundColor: "blue"
+  },
+  flatList: {
+    height: "100%",
+    width: "100%",
     display: "flex",
-    flexDirection: "row",
-    justifyContent: "center"
+    // justifyContent: "center",
+    // alignItems: "center"
+    backgroundColor: "powderblue"
+    // padding: 10
   },
   item: {
-    height: "70%",
-    width: "60%",
-    backgroundColor: "orange"
+    // padding: 20,
+    // fontSize: 18,
+    height: "100%",
+    width: 60,
+    backgroundColor: "green",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 0
+  },
+  itemText: {
+    backgroundColor: "purple"
   }
 });
 
