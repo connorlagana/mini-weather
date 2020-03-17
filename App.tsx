@@ -8,7 +8,7 @@ class App extends Component {
 
     this.state = {
       bg: "#faaaf5",
-      name: "cupertino",
+      name: "Palo Alto",
       image: "",
       symbol: "https://img.icons8.com/ios/72/sun.png"
     };
